@@ -1,60 +1,65 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import random
+from sklearn.linear_model import LinearRegression
 import spacy
 from scipy.cluster import hierarchy
 from Levenshtein import distance
 
-def extract_infos(table,column,N=4):
-    """Extraction of the values in a column of a pandas.DataFrame and plotting an histogram
+def hist(df_datas,width_bar=0.2,colors=[]):
+    """_summary_
 
     Args:
-        table (pandas.DataFrame): a pandas table.
-        column (String): name of the column to histogramm.
-        N (int, optional): number of class to show. defaults to 4.
-
-    Returns:
-        dictionary: keys are values possible to take and values the number of occurence of the key.
+        list_dict (_type_): _description_
+        colors (list, optional): _description_. Defaults to [].
+        dtype (str, optional): _description_. Defaults to 'quali'.
+        xmin (int, optional): _description_. Defaults to 0.
+        xmax (int, optional): _description_. Defaults to 100.
+        ymin (int, optional): _description_. Defaults to 0.
+        ymax (int, optional): _description_. Defaults to 100.
+        y_gap (int, optional): _description_. Defaults to 10.
     """
-    # Extract the dictionary
-    count  = dict(table[column].value_counts())
-    null_count = table[column].isnull().sum()
+    # Load keys and normalize values
+    offset = -width_bar * (len(df_datas.columns)/2)
+    positions = np.arange(len(df_datas.index))
 
-    # Extract keys and values as lists
-    values = list(count.values())
-    keys   = list(count.keys())
+    i = 0
+    for col in list(df_datas.columns):
+        plt.bar(positions+offset, df_datas[col], color=[colors[i]]*len(df_datas[col]), width=width_bar, label=col)
+        offset += width_bar
+        i += 1
 
-    # Keep only the N first keys and create a key others
-    new_keys = keys[:N]
-    new_keys.append('others')
-    new_keys.append('unspecified')
+    plt.xticks(positions, df_datas.index, rotation='vertical')
+    plt.legend()
+    return 
 
-    # Keep only the values for the N first keys and calculate the value for the ket others
-    new_values = values[:N]
-    new_values.append(sum(values[N+1:]))
-    new_values.append(null_count)
-    new_values = new_values / sum(new_values)
+def norm_hist(dict,colors=[],dtype='quali',xmin=0,xmax=1):
+    """_summary_
 
-    # Calculate colors on a blue scale (and black for the others key)
-    bleu_min = (0,0,255)
-    bleu_max = (255,255,255)
-    colors = ['#%02X%02X%02X' % (random.randint(bleu_min[0], bleu_max[0]),
-                                 random.randint(bleu_min[1], bleu_max[1]),
-                                 random.randint(bleu_min[2], bleu_max[2])) for _ in range(len(new_keys)-2)]
-    colors.append('#000000')
-    colors.append('#808080')
-
+    Args:
+        dict (_type_): _description_
+        colors (list, optional): _description_. Defaults to [].
+        dtype (str, optional): _description_. Defaults to 'quali'.
+        xmin (int, optional): _description_. Defaults to 0.
+        xmax (int, optional): _description_. Defaults to 1.
+    """
+    # Load keys and normalize values
+    keys = list(dict.keys())
+    values = list(dict.values())
+    norm_values = [values[i] / sum(values) for i in range(len(values))]
+    
     # Plot of the histogramm
-    plt.bar(new_keys, new_values, color=colors, edgecolor='black')
-    plt.xticks(rotation='vertical')
+    plt.bar(keys, norm_values, color=colors, edgecolor='black')
+    if dtype == 'quant':
+        plt.xticks(range(xmin,xmax),rotation='vertical')
+    else:
+        plt.xticks(rotation='vertical')
     plt.ylabel('Frequency')
     for i in range(10, 100, 10):
         plt.axhline(y=i/100, color='gray', linestyle='--', linewidth=0.5)
-    plt.title(f'{column} frequency repartition')
     plt.show()
 
-    return count
+    return 
 
 def levenshtein_dendogram(chains,ct=40):
     """Plotting and extracting dendogram of levenshtein distance of a string chain list.
@@ -136,12 +141,12 @@ def repartition(dict,t=0.95):
     for i in range(len(values)-1):
         repart.append(sum(values[:i+1])/tot)
 
-    # Id where repartition > threshold
+
     thr = min([i for i,val in enumerate(repart) if val > t])
 
     # Plot of the repartition function
     plt.plot(repart, color='blue', linewidth=3)
-    plt.axvline(x=thr, color='red', linestyle='--')
+    plt.axvline(x=thr, color='grey', linestyle='--')
     plt.xlim(0,len(repart))
     plt.ylim(0,1)
     plt.ylabel("Repartition")
