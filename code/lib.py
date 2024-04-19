@@ -113,7 +113,7 @@ def semantix_dendogram(chains,ct=3):
 
     # Plot of teh dendogram
     plt.figure(figsize=(10, 5))
-    dn = hierarchy.dendrogram(Z, labels=chains, color_threshold=3)
+    dn = hierarchy.dendrogram(Z, labels=chains, color_threshold=ct)
     plt.xticks(rotation='vertical')
     plt.ylabel('Semantix distance')
     plt.show()
