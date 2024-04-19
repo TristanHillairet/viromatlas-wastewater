@@ -33,7 +33,7 @@ def hist(df_datas,width_bar=0.2,colors=[]):
     plt.legend()
     return 
 
-def norm_hist(dict,colors=[],dtype='quali',xmin=0,xmax=1):
+def norm_hist(dict,colors=[]):
     """_summary_
 
     Args:
@@ -46,19 +46,19 @@ def norm_hist(dict,colors=[],dtype='quali',xmin=0,xmax=1):
     # Load keys and normalize values
     keys = list(dict.keys())
     values = list(dict.values())
-    norm_values = [values[i] / sum(values) for i in range(len(values))]
-    
+    def norm(y):
+        return y/sum(values)
+    def unnorm(y):
+        return y*sum(values)
     # Plot of the histogramm
-    plt.bar(keys, norm_values, color=colors, edgecolor='black')
-    if dtype == 'quant':
-        plt.xticks(range(xmin,xmax),rotation='vertical')
-    else:
-        plt.xticks(rotation='vertical')
-    plt.ylabel('Frequency')
-    for i in range(10, 100, 10):
-        plt.axhline(y=i/100, color='gray', linestyle='--', linewidth=0.5)
+    fig,ax1 = plt.subplots()
+    ax1.bar(keys, values, color=colors, edgecolor='black')
+    ax1.set_ylabel("Total")
+    ax1.set_ylim(0,sum(values))
+    ax1.set_xticks(keys, rotation='vertical')
+    ax2 = ax1.secondary_yaxis('right', functions=(norm,unnorm))
+    ax2.set_ylabel("Frequency")
     plt.show()
-
     return 
 
 def levenshtein_dendogram(chains,ct=40):
