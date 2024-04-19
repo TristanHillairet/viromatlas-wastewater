@@ -55,7 +55,7 @@ def norm_hist(dict,colors=[]):
     ax1.bar(keys, values, color=colors, edgecolor='black')
     ax1.set_ylabel("Total")
     ax1.set_ylim(0,sum(values))
-    ax1.set_xticks(keys, rotation='vertical')
+    ax1.set_xticks(keys)
     ax2 = ax1.secondary_yaxis('right', functions=(norm,unnorm))
     ax2.set_ylabel("Frequency")
     plt.show()
