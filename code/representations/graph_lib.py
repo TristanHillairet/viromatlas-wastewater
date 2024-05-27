@@ -39,9 +39,12 @@ import plotly.express as px
 # Scripts | personal libraries importations
 #
 
-folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.'))
-if folder_path not in sys.path:
-    sys.path.insert(0, folder_path)
+folder_path1 = os.path.abspath(os.path.join(os.path.dirname(__file__), '.'))
+if folder_path1 not in sys.path:
+    sys.path.insert(0, folder_path1)
+folder_path2 = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if folder_path2 not in sys.path:
+    sys.path.insert(0, folder_path2)
 import globals as p
 
 ###########################

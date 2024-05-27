@@ -75,7 +75,7 @@ if __name__ == "__main__":
                 code = f.read()
                 exec(code)
                 tend = time.time()
-                t  = np.round(t2 - tsta,decimals=1)
+                t  = np.round(tend - tsta,decimals=1)
                 print(f"\033[93m#---Temps total d'exécution [{t}s]\033[0m")
         
         #

@@ -1,0 +1,197 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2758
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgray\c0\c0;}
+\vieww30040\viewh18340\viewkind0
+\deftab720
+\pard\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+# check if a string is a full alpha string\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+def is_alpha_string(string,max_words=2):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """return wether a string is an alpha string or not\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Args:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        string (string): string to check \kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        max_words (int, optional): max words that can contain the string. Defaults to 2.\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    for n in range(max_words):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        pattern = r'^[a-zA-Z]+ \{'+str(n)+r'\}[a-zA-Z]+$'\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        if re.match(pattern,string):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+            return True\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    \kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    return False\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+# give decimal precision of a number\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+def decimal_precision(nombre):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """return the decimal precision of a number\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Args:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        nombre (float): number to calc\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Returns:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        int: number of decimals given in the number\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    if nombre == np.NaN:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        return np.NaN\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    chaine = str(nombre)\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    index_point = chaine.find('.')\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    if index_point == -1:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        return np.NaN\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    return len(chaine) - index_point - 1\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+# check if a string country is Na\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+def country_is_na(country):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """return wether a country field is NA or not\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Args:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        country (string): Country value\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Returns:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        bool: True if the string is Na False if not\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    country_na_tag = ['uncalculated','<NA>']\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    if pd.isna(country):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        return True\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    elif country in country_na_tag:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        return True\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    return False\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+# check if 2 strings of countries matches\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+def match_countries(country_name_1,country_name_2):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """say if two string of countries matches or not\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Args:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        country_name_1 (string): string name of country one\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        country_name_2 (string): string name of country two\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Returns:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        bool: True if the two countries are the same\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    alpha_country_1 = country_name_to_alpha_3.get(country_name_1, None)\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    alpha_country_2 = country_name_to_alpha_3.get(country_name_2, None)\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    if alpha_country_1 == alpha_country_2:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        return True\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    return False\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+# check if reversig latlon is better\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+#\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+def reverse_lat_lon_test(longitude,latitude,country):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """say if reversing coodinates matches the country given\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Args:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        longitude (float): longitude of the point\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        latitude (float): latitude of the point\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        country (string): string name of the country given\kerning1\expnd0\expndtw0 \
+\
+\expnd0\expndtw0\kerning0
+    Returns:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        bool: True if reversing coordinates matches the country\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    """\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    coordinates = [(longitude,latitude)]\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    alpha3_country = country_name_to_alpha_3.get(country, None)\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    rgeocode = rg.search(coordinates)          \kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    if(len(rgeocode)>0):\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        rg_country = rgeocode[0]['country']\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        alpha3_rg_country = country_name_to_alpha_3.get(rg_country, None)\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    if alpha3_country == alpha3_rg_country:\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+        return True\kerning1\expnd0\expndtw0 \
+\expnd0\expndtw0\kerning0
+    return False\kerning1\expnd0\expndtw0 \
+}

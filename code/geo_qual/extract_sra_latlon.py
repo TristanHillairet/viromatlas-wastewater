@@ -61,7 +61,7 @@ import globals as p
 # distant path to file
 #
 
-distant_path = 'geo-sra/samples/sra_metadata_toy.parquet'
+distant_path = 'geo-sra/geo-sra.parquet.gzip'
 
 #
 # local path to file
@@ -301,15 +301,15 @@ def parse_geo_sra(pd_array_partition):
         # parse from attributes metadata available
         #
 
-        lat_lon_patterns = [
-            r"(-?\d+\.\d+ [NS]) (-?\d+\.\d+ [WE])",   # xx.xxx N xx.xxx W
-            r"(-?\d+\.\d+' [NS]) (-?\d+\.\d+' [WE])", # xx.xxx' N xx.xxx' W
-            r"(-?\d+\.\d+° [NS]) (-?\d+\.\d+° [WE])", # xx.xxx° N xx.xxx° W
-            r'(-?\d+ [NS]) (-?\d+ [WE])',             # xx N xx W
-            r'(-?\d+\.\d+ [NS]) (-?\d+ [WE])',        # xx.xxx N xx W
-            r'(-?\d+ [NS]) (-?\d+\.\d+ [WE])',        # xx N xx.xxx W 
-            r'(-?\d+\.\d+) (-?\d+\.\d+)',             # xx.xxx xx.xxx
-            r'(-?\d+\.\d+°) (-?\d+\.\d+°)',           # xx.xxx° xx.xxx°
+        lat_lon_patterns = [                                                 
+            r"(-?\d+\.\d+ [NS]) (-?\d+\.\d+ [WE])",   # xx.xxx N xx.xxx W   
+            r"(-?\d+\.\d+' [NS]) (-?\d+\.\d+' [WE])", # xx.xxx' N xx.xxx' W 
+            r"(-?\d+\.\d+° [NS]) (-?\d+\.\d+° [WE])", # xx.xxx° N xx.xxx° W 
+            r'(-?\d+ [NS]) (-?\d+ [WE])',             # xx N xx W           
+            r'(-?\d+\.\d+ [NS]) (-?\d+ [WE])',        # xx.xxx N xx W       
+            r'(-?\d+ [NS]) (-?\d+\.\d+ [WE])',        # xx N xx.xxx W       
+            r'(-?\d+\.\d+) (-?\d+\.\d+)',             # xx.xxx xx.xxx       
+            r'(-?\d+\.\d+°) (-?\d+\.\d+°)',           # xx.xxx° xx.xxx°     
             r"(-?\d+\.\d+') (-?\d+\.\d+')",           # xx.xxx' xx.xxx'
         ]
 
@@ -334,6 +334,7 @@ def parse_geo_sra(pd_array_partition):
             r"(-?\d+\.\d+°)",
             r"(-?\d+\.\d+')"
         ]
+#############################################################################@
 
         ###########################################################################
         # 
